@@ -40,6 +40,7 @@ define([
         './PointCloudShading',
         './SceneMode',
         './ShadowMode',
+        './StencilConstants',
         './TileBoundingRegion',
         './TileBoundingSphere',
         './TileOrientedBoundingBox'
@@ -85,6 +86,7 @@ define([
         PointCloudShading,
         SceneMode,
         ShadowMode,
+        StencilConstants,
         TileBoundingRegion,
         TileBoundingSphere,
         TileOrientedBoundingBox) {
@@ -1704,7 +1706,10 @@ define([
 
     var stencilClearCommand = new ClearCommand({
         stencil : 0,
-        pass : Pass.CESIUM_3D_TILE
+        pass : Pass.CESIUM_3D_TILE,
+        renderState : {
+            stencilMask : StencilConstants.CESIUM_3D_TILE_MASK
+        }
     });
 
     function updateTiles(tileset, frameState) {

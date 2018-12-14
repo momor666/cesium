@@ -35,16 +35,19 @@ define([
         '../Renderer/Pass',
         '../Renderer/RenderState',
         '../Renderer/VertexArray',
-        '../Scene/BlendingState',
-        '../Scene/DepthFunction',
-        '../Scene/PerInstanceColorAppearance',
-        '../Scene/Primitive',
+        './BlendingState',
         './ClippingPlaneCollection',
+        './DepthFunction',
         './GlobeSurfaceTile',
         './ImageryLayer',
+        './PerInstanceColorAppearance',
+        './Primitive',
         './QuadtreeTileLoadState',
         './SceneMode',
-        './ShadowMode'
+        './ShadowMode',
+        './StencilConstants',
+        './StencilFunction',
+        './StencilOperation'
     ], function(
         BoundingSphere,
         BoxOutlineGeometry,
@@ -83,15 +86,18 @@ define([
         RenderState,
         VertexArray,
         BlendingState,
-        DepthFunction,
-        PerInstanceColorAppearance,
-        Primitive,
         ClippingPlaneCollection,
+        DepthFunction,
         GlobeSurfaceTile,
         ImageryLayer,
+        PerInstanceColorAppearance,
+        Primitive,
         QuadtreeTileLoadState,
         SceneMode,
-        ShadowMode) {
+        ShadowMode,
+        StencilConstants,
+        StencilFunction,
+        StencilOperation) {
     'use strict';
 
     /**
@@ -442,7 +448,8 @@ define([
                 depthTest : {
                     enabled : true,
                     func : DepthFunction.LESS
-                }
+                },
+                stencilTest : StencilConstants.setTerrainBit()
             });
 
             this._blendRenderState = RenderState.fromCache({ // Write color and depth
@@ -453,6 +460,7 @@ define([
                     enabled : true,
                     func : DepthFunction.LESS_OR_EQUAL
                 },
+                stencilTest : StencilConstants.setTerrainBit(),
                 blending : BlendingState.ALPHA_BLEND
             });
         }

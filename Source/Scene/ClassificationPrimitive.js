@@ -23,6 +23,7 @@ define([
         './Primitive',
         './SceneMode',
         './ShadowVolumeAppearance',
+        './StencilConstants',
         './StencilFunction',
         './StencilOperation'
     ], function(
@@ -50,6 +51,7 @@ define([
         Primitive,
         SceneMode,
         ShadowVolumeAppearance,
+        StencilConstants,
         StencilFunction,
         StencilOperation) {
     'use strict';
@@ -395,21 +397,22 @@ define([
             },
             stencilTest : {
                 enabled : enableStencil,
-                frontFunction : StencilFunction.ALWAYS,
+                frontFunction : StencilFunction.NOT_EQUAL,
                 frontOperation : {
                     fail : StencilOperation.KEEP,
                     zFail : StencilOperation.DECREMENT_WRAP,
                     zPass : StencilOperation.DECREMENT_WRAP
                 },
-                backFunction : StencilFunction.ALWAYS,
+                backFunction : StencilFunction.NOT_EQUAL,
                 backOperation : {
                     fail : StencilOperation.KEEP,
                     zFail : StencilOperation.INCREMENT_WRAP,
                     zPass : StencilOperation.INCREMENT_WRAP
                 },
-                reference : stencilReference,
-                mask : stencilMask
+                reference : StencilConstants.NONE_MASK,
+                mask : StencilConstants.TERRAIN_MASK
             },
+            stencilMask : StencilConstants.CLASSIFICATION_MASK,
             depthTest : {
                 enabled : false
             },
@@ -427,21 +430,22 @@ define([
             },
             stencilTest : {
                 enabled : enableStencil,
-                frontFunction : StencilFunction.ALWAYS,
+                frontFunction : StencilFunction.NOT_EQUAL,
                 frontOperation : {
                     fail : StencilOperation.KEEP,
                     zFail : StencilOperation.KEEP,
                     zPass : StencilOperation.INCREMENT_WRAP
                 },
-                backFunction : StencilFunction.ALWAYS,
+                backFunction : StencilFunction.NOT_EQUAL,
                 backOperation : {
                     fail : StencilOperation.KEEP,
                     zFail : StencilOperation.KEEP,
                     zPass : StencilOperation.DECREMENT_WRAP
                 },
-                reference : stencilReference,
-                mask : stencilMask
+                reference : StencilConstants.NONE_MASK,
+                mask : StencilConstants.TERRAIN_MASK
             },
+            stencilMask : StencilConstants.CLASSIFICATION_MASK,
             depthTest : {
                 enabled : true,
                 func : DepthFunction.LESS_OR_EQUAL
@@ -466,9 +470,10 @@ define([
                     zFail : StencilOperation.KEEP,
                     zPass : StencilOperation.DECREMENT_WRAP
                 },
-                reference : stencilReference,
-                mask : stencilMask
+                reference : StencilConstants.NONE_MASK,
+                mask : StencilConstants.CLASSIFICATION_MASK
             },
+            stencilMask : StencilConstants.CLASSIFICATION_MASK,
             depthTest : {
                 enabled : false
             },
